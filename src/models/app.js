@@ -3,7 +3,9 @@ export default {
 
   namespace: 'example',
 
-  state: {},
+  state: {
+    a: 1
+  },
 
   subscriptions: {
     setup({ dispatch, history }) {  // eslint-disable-line
@@ -20,6 +22,22 @@ export default {
     save(state, action) {
       return { ...state, ...action.payload };
     },
+    updateState(state, payload) {
+      console.log(state, payload)
+    }
   },
-
+  effects: {
+    * update ({
+               payload,
+             }, { call, put, select }) {
+     console.log(payload)
+     if (payload) {
+      yield put({
+        type: 'updateState',
+        payload
+      })
+     }
+		  
+    },
+  }
 };
