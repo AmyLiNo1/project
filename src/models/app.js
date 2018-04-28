@@ -1,10 +1,10 @@
 
 export default {
 
-  namespace: 'example',
+  namespace: 'app',
 
   state: {
-    a: 1
+    collapsed: true
   },
 
   subscriptions: {
@@ -12,32 +12,23 @@ export default {
     },
   },
 
-  effects: {
-    *fetch({ payload }, { call, put }) {  // eslint-disable-line
-      yield put({ type: 'save' });
-    },
-  },
-
   reducers: {
-    save(state, action) {
-      return { ...state, ...action.payload };
-    },
-    updateState(state, payload) {
-      console.log(state, payload)
+    updateState(state, { payload }) {
+      return { ...state, ...payload };
     }
   },
+
   effects: {
     * update ({
                payload,
              }, { call, put, select }) {
-     console.log(payload)
      if (payload) {
       yield put({
         type: 'updateState',
         payload
       })
      }
-		  
     },
   }
+  
 };

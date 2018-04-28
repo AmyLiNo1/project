@@ -3,7 +3,6 @@ const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 const SideBar = () => {
     function onCollapse(collapsed) {
-        console.log(collapsed)
     }
     return (
             <Layout style={{ minHeight: '100vh' }}>

@@ -14,9 +14,9 @@ function RouterConfig({ history, app }) {
       // models: () => [import('./models/app')],
       component: () => import('./routes/login/index')
   }, {
-    path: '/indexPage', 
-      // models: () => [import('./models/app')],
-      component: () => import('./routes/IndexPage')
+    path: '/list', 
+      models: () => [import('./models/list')],
+      component: () => import('./routes/list/index.js')
   }, {
     path: '/b', 
       // models: () => [import('./models/app')],

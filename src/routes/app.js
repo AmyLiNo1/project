@@ -4,14 +4,16 @@ import { withRouter } from 'dva/router'
 import { MyLayout } from '../components';
 // const { Header, SideBar, Footer } = MyLayout 
 import { Menu, Breadcrumb, Icon, Button, Layout } from 'antd';
+import { Link } from 'react-router-dom';
 const { Header, Content, Footer, Sider } = Layout;
 import './app.less'
 const SubMenu = Menu.SubMenu;
 function App({ app, children, dispatch, history, location, match, staticContext }) {
+  const { collapsed } = app
   function onCollapse(collapsed) {
     dispatch({
       type: 'app/update',
-      payload: {collapsed: !collapsed}
+      payload: {collapsed}
     })
   }
   return (
@@ -20,12 +22,25 @@ function App({ app, children, dispatch, history, location, match, staticContext 
       <Layout style={{ minHeight: '100vh' }}>
         <Sider
           collapsible
-          collapsed={false}
+          collapsed={collapsed}
           onCollapse={onCollapse}
         >
           <div className="logo" />
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-            <Menu.Item key="1">
+            <Menu.Item key="10">
+              <Icon type="table" />
+              <span>人员列表</span>
+              <Link to={'list'}> 人员列表</Link>
+            </Menu.Item>
+            <Menu.Item key="11">
+              <Icon type="user-add" />
+              <span>新增人员</span>
+            </Menu.Item>
+            <Menu.Item key="12">
+              <Icon type="setting" />
+              <span>设置</span>
+            </Menu.Item>
+            <Menu.Item key="13">
               <Icon type="pie-chart" />
               <span>Option 1</span>
             </Menu.Item>

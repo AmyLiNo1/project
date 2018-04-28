@@ -1,2 +1,3 @@
 import * as MyLayout from './Layout/index.js'
-export { MyLayout }
+import * as MyList from './List/index.js'
+export { MyLayout, MyList }
