@@ -6,7 +6,7 @@ let list = Mock.mock({
             'age|11-99': 1,
             address: '@county(true)',
             createTime: '@datetime',
-            isMale: '@boolean',
+            'isMale|0-1': 1,
             avatar () {
               return Mock.Random.image('30x30', Mock.Random.color(), '#757575', 'png', this.nickName.substr(0, 1))
             },
@@ -28,6 +28,26 @@ let list = Mock.mock({
     }
 module.exports = {
     [ 'GET /api/list'](req, res) {
-      res.json({status: 200, message: 'success', data: list.list, statusList})
-    }
+        let begintime = req.query.begintime
+        let lists = []
+        for (let i of list.list) {
+            if (req.query.status && i.status === Number(req.query.status)) {
+                lists.push(i)
+            } else {
+                lists = list.list
+            }
+        }
+      res.json({status: 200, message: 'success', data: lists, statusList})
+    },
+    [ 'GET /api/detail'](req, res) {
+        for (let item of list.list) {
+            if (item.id = req.query.id) {
+                res.json({status: 200, message: 'success', data: {ainfo: item, binfo: item, cinfo: item, dinfo: item}, statusList})
+                return;
+            }
+        }
+      
+    },
+
+    
 };

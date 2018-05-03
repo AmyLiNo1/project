@@ -1,3 +1,13 @@
 .aa {
     margin-right: 10px;
 }
+.firstcol {
+    line-height: 20px;
+    margin: 10px 0;
+    text-indent: 1rem;
+    border-left: 3px solid #1890ff
+}
+.cols:nth-child(2n) {
+    text-align: right;
+    padding: 0 20px 0 0;
+}

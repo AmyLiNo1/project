@@ -1,5 +1,6 @@
-import { getList } from '../services/api' 
-import moment from 'moment';
+import { getList, getDetail, getProvinces } from '../services/api' 
+import moment, { locale } from 'moment';
+import { routerRedux } from 'dva/router'
 const dateFormat = 'YYYY/MM/DD'
 export default {
 
@@ -10,15 +11,22 @@ export default {
       statusList: [], // 人员1的状态码值表
       queryConfig1: {tabKey: 1, status: '', begintime: moment().subtract(1, 'month').format(dateFormat), endtime: moment().format(dateFormat)}, // 人员1的查询条件
       queryConfig2: {tabKey: 2}, // 人员2的查询条件
+      detail: {}, // 人员详情
+      options: [] // 城市列表
     },
   
     subscriptions: {
       setup({ dispatch, history }) {  // eslint-disable-line
-        history.listen(( location ) => { 
+        history.listen(( {pathname, search} ) => { 
           // 页面初始调接口
-          if (location.pathname === '/list') {
-            dispatch({ type: 'lists', payload: {tabKey: 1}});
-          } 
+          if (pathname === '/list') {
+            dispatch({ type: 'lists', payload: {tabKey: 1}});return;
+          }
+          if (search) {
+            let id = search.replace('?id=','')
+            dispatch({ type: 'detail', payload: {id}});
+            dispatch({type: 'provinces'})
+          }
         });
       },
     },
@@ -82,6 +90,76 @@ export default {
         })
        }    
       },
+      // 更新state
+      * updateConfig ({
+                 payload,
+               }, { call, put, select }) {
+       if (payload) {
+        yield put({
+          type: 'updateState',
+          payload
+        })
+       }    
+      },
+      // 跳转路由
+      * toPath ({
+                 payload,
+               }, { call, put, select }) {
+                 if (payload.key === '0') {
+                  yield put(routerRedux.push(`/list`))
+                 } else if (payload.key === '1') {
+                  yield put(routerRedux.push(`/detail?id=${payload.id}`))
+                 } else if (payload.key === '2') {
+                  yield put(routerRedux.push(`/edit?id=${payload.id}`))
+                 }
+                
+      },
+      // 获取详情接口
+      * detail ({
+                 payload,
+               }, { call, put, select }) {
+                const data = yield call(getDetail, payload)
+                if (data.status === 200) {
+                  yield put({
+                    type: 'updateState',
+                    payload: {
+                      detail: data.data,
+                      statusList: data.statusList
+                    } 
+                  })
+                }
+                
+      },
+      // 获取省的接口
+      *provinces ({
+                 payload,
+               }, { call, put, select }) {
+                const data = yield call(getProvinces)
+                if (data.status === 200) {
+                  yield put({
+                    type: 'updateState',
+                    payload: {
+                      options: data.data
+                    } 
+                  })
+                }
+                
+      },
+      // 编辑接口
+      *edit ({
+        payload,
+      }, { call, put, select }) {
+        yield put({
+          type: 'updateState',
+          payload
+        })
+        if (payload.editFlag.aFlag === '0' && payload.editFlag.bFlag === '0' && payload.editFlag.cFlag === '0' && payload.editFlag.dFlag === '0') {
+          console.log('success', payload)
+        }
+      },
+      
+      
+
     }
 
   };

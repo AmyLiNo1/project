@@ -1,9 +1,11 @@
 // 性别过滤
 exports.gender = (item) => {
     switch (item) {
-        case true:
+        case 0:
+        case '0':
             return '男';
-        case false:
+        case 1:
+        case '1':
             return '女';
     }
 };

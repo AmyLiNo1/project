@@ -29,7 +29,6 @@ function App({ app, children, dispatch, history, location, match, staticContext 
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
             <Menu.Item key="10">
               <Icon type="table" />
-              <span>人员列表</span>
               <Link to={'list'}> 人员列表</Link>
             </Menu.Item>
             <Menu.Item key="11">

@@ -18,9 +18,13 @@ function RouterConfig({ history, app }) {
       models: () => [import('./models/list')],
       component: () => import('./routes/list/index.js')
   }, {
-    path: '/b', 
-      // models: () => [import('./models/app')],
-      component: () => import('./routes/login')
+    path: '/detail', 
+      models: () => [import('./models/list')],
+      component: () => import('./routes/list/detail.js')
+  }, {
+    path: '/edit', 
+      models: () => [import('./models/list')],
+      component: () => import('./routes/list/edit.js')
   }, {
     path: '/aa', 
       // models: () => [import('./models/app')],

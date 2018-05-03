@@ -2,11 +2,27 @@ import { request, config } from '../utils'
 import qs from 'qs';
 const { api } = config
 const { list } = api
+const baseUrl = 'http://localhost:8000/api/'
 
 export async function getList (payload) {
   return request({
-    url: 'http://localhost:8000/api/list',
+    url: `${baseUrl}list`,
     method: 'get',
     payload
+  })
+}
+
+export async function getDetail (payload) {
+  return request({
+    url: `${baseUrl}detail`,
+    method: 'get',
+    payload
+  })
+}
+
+export async function getProvinces () {
+  return request({
+    url: `${baseUrl}provinces`,
+    method: 'get',
   })
 }

@@ -12,12 +12,18 @@ function List({list, dispatch}) {
     dataSource, statusList, queryConfig1,
     updateConfig(payload) {
       dispatch({type: 'list/updateConfig1', payload})
+    },
+    toPath(payload) {
+      dispatch({type: 'list/toPath', payload})
     }
   }
   const Props2 = {
     dataSource, queryConfig2,
     updateConfig(payload) {
       dispatch({type: 'list/updateConfig2', payload})
+    },
+    toPath(payload) {
+      dispatch({type: 'list/toPath', payload})
     }
   }
   function changeTab(tabKey) {

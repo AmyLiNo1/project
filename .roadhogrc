@@ -14,5 +14,15 @@
         ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }] 
       ]
     }
+  },
+  "proxy": {
+    "/qiniu": {
+      "target": "http://up.qiniu.com",
+      "changeOrigin": true
+    },
+    "/net": {
+      "target": "http://cloud1.gaitubao.net",
+      "changeOrigin": true
+    }
   }
 }
