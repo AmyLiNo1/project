@@ -34,3 +34,11 @@ export async function editDetail (data) {
     data
   })
 }
+
+export async function deleteId (data) {
+  return request({
+    url: `${baseUrl}delete`,
+    method: 'DELETE',
+    data
+  })
+}

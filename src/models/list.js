@@ -1,4 +1,4 @@
-import { getList, getDetail, getProvinces, editDetail } from '../services/api' 
+import { getList, getDetail, getProvinces, editDetail, deleteId } from '../services/api' 
 import moment, { locale } from 'moment';
 import { routerRedux } from 'dva/router'
 import { message } from 'antd';
@@ -112,6 +112,19 @@ export default {
                   yield put(routerRedux.push(`/detail?id=${payload.id}`))
                  } else if (payload.key === '2') {
                   yield put(routerRedux.push(`/edit?id=${payload.id}`))
+                 } else if (payload.key === '3') {
+                  const data = yield call(deleteId, payload)
+                  if (data.status === 200) {
+                    const datalist = yield call(getList, payload)
+                    if (datalist.status === 200) {
+                      yield put({
+                        type: 'updateState',
+                        payload: {
+                          dataSource: datalist.data,
+                        } 
+                      })
+                    }
+                  }
                  }
                 
       },
@@ -150,7 +163,6 @@ export default {
       *edit ({
         payload,
       }, { call, put, select }) {
-        console.log(payload)
         const data = yield call(editDetail, payload)
         if (data.status === 200) {
           message.success(data.message)

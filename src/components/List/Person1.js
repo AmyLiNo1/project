@@ -2,6 +2,7 @@ import { Table,  Menu, Dropdown, Icon } from 'antd';
 import { gender } from '../../utils/filters'
 import { Link } from 'react-router-dom';
 import Query from './Query1';
+
 const Person = ({ dataSource, statusList, updateConfig, queryConfig1, toPath }) => {
     const columns = [{
         "title":"id","dataIndex":"id","key":"id", width: 80, fixed: 'left', align: 'center'

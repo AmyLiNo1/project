@@ -2,6 +2,8 @@ import { Table,  Menu, Dropdown, Icon } from 'antd';
 import { gender } from '../../utils/filters'
 import { Link } from 'react-router-dom';
 import Query from './Query2';
+
+const Person = ({ dataSource, updateConfig, queryConfig2, toPath }) => {
     const columns = [{
         "title":"id","dataIndex":"id","key":"id", width: 80, fixed: 'left', align: 'center'
     },{
@@ -15,7 +17,7 @@ import Query from './Query2';
     },{
         "title":"createTime","dataIndex":"createTime","key":"createTime", width: 200, align: 'center'
     },{
-        "title":"isMale","dataIndex":"isMale","key":"isMale", width: 100, align: 'center', 
+        "title":"isMale","dataIndex":"isMale","key":"isMale", width: 100, align: 'center',
         render: (value, row, index) => {
             return (<span>{gender(value)}</span>)
         }
@@ -42,8 +44,8 @@ import Query from './Query2';
         key: 'operation',
         fixed: 'right',
         width: 100,
-        render: () => (
-            <Dropdown overlay={menu}>
+        render: (value, row) => (
+            <Dropdown overlay={<Menu onClick={({key})=>onMenuClick(key, row.id)}>{menu}</Menu>}>
                 <div>
                 操作 <Icon type="down" />
                 </div>
@@ -51,22 +53,11 @@ import Query from './Query2';
         ),
     },]
 
-  const menu = (
-    <Menu>
-      <Menu.Item>
-      <Link to={'login'}> 详情</Link>
-      </Menu.Item>
-      <Menu.Item>
-      <Link to={'login'}> 编辑</Link>
-      </Menu.Item>
-      <Menu.Item>
-      <Link to={'login'}> 删除</Link>
-      </Menu.Item>
-    </Menu>
-  );
-
-
-const Person = ({ dataSource, statusList, updateConfig, queryConfig2 }) => {
+    const menuOptions = [{key: 1, name: '详情'}, {key: 2, name: '编辑'}, {key: 3, name: '删除'}]
+    const menu = menuOptions.map(item => <Menu.Item key={item.key}>{item.name}</Menu.Item>)
+    function onMenuClick(key, id) {
+        toPath({key, id, tabKey: 2})
+    }
     const queryProps = {
         updateConfig,
         queryConfig2

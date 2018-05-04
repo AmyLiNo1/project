@@ -37,12 +37,10 @@ function Detail({ list, dispatch }) {
     function changeTab(key) {
     }
     function goList() {
-      console.log(aref, bref.current)
       let detailData = {}
       let errs = false
       aref.current.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          console.log('valuesa',values)
           detailData.ainfo = values
           return false
         } else {
@@ -52,7 +50,6 @@ function Detail({ list, dispatch }) {
       });
       bref.current && bref.current.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          console.log('valuesb',values)
           detailData.binfo = values
           return false
         } else {
@@ -62,7 +59,6 @@ function Detail({ list, dispatch }) {
       });
       cref.current && cref.current.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          console.log('valuesc',values)
           detailData.cinfo = values
           return false
         } else {
@@ -72,7 +68,6 @@ function Detail({ list, dispatch }) {
       });
       dref.current && dref.current.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          console.log('valuesd',values)
           detailData.dinfo = values
           return false
         } else {

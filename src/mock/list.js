@@ -51,5 +51,12 @@ module.exports = {
         list.list[req.body.ainfo.id-1] = req.body.ainfo
         res.json({status: 200, message: '更新成功'})
     },
-    
+    [ 'DELETE /api/delete'](req, res) {
+        for (let i in list.list) {
+            if (req.body.id === Number(i)) {
+                list.list.splice(i-1, i);
+                res.json({status: 200, message: '删除成功'})
+            }
+        }
+    },
 };
