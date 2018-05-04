@@ -46,8 +46,10 @@ module.exports = {
                 return;
             }
         }
-      
     },
-
+    [ 'POST /api/edit'](req, res) {
+        list.list[req.body.ainfo.id-1] = req.body.ainfo
+        res.json({status: 200, message: '更新成功'})
+    },
     
 };

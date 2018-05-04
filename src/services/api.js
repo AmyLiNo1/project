@@ -26,3 +26,11 @@ export async function getProvinces () {
     method: 'get',
   })
 }
+
+export async function editDetail (data) {
+  return request({
+    url: `${baseUrl}edit`,
+    method: 'post',
+    data
+  })
+}

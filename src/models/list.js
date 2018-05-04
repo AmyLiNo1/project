@@ -1,6 +1,7 @@
-import { getList, getDetail, getProvinces } from '../services/api' 
+import { getList, getDetail, getProvinces, editDetail } from '../services/api' 
 import moment, { locale } from 'moment';
 import { routerRedux } from 'dva/router'
+import { message } from 'antd';
 const dateFormat = 'YYYY/MM/DD'
 export default {
 
@@ -149,12 +150,13 @@ export default {
       *edit ({
         payload,
       }, { call, put, select }) {
-        yield put({
-          type: 'updateState',
-          payload
-        })
-        if (payload.editFlag.aFlag === '0' && payload.editFlag.bFlag === '0' && payload.editFlag.cFlag === '0' && payload.editFlag.dFlag === '0') {
-          console.log('success', payload)
+        console.log(payload)
+        const data = yield call(editDetail, payload)
+        if (data.status === 200) {
+          message.success(data.message)
+          yield put(routerRedux.push(`/list`))
+        } else {
+          message.error(data.message)
         }
       },
       

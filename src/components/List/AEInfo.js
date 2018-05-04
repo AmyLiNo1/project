@@ -4,7 +4,7 @@ import { UploadImg } from '../Common/index.js'
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const Option = Select.Option;
-const Info = ({ ainfo={}, form, options, statusList, updateConfig, aFlag, updateDetail }) => {
+const Info = ({ ainfo={}, form, options, statusList, updateConfig }) => {
     const uploadProps = {
         imageUrl: ainfo.avatar,
         updateConfig(payload){updateConfig({ainfo: {...ainfo, ...payload}})}
@@ -20,20 +20,10 @@ const Info = ({ ainfo={}, form, options, statusList, updateConfig, aFlag, update
           sm: { span: 16 },
         },
     };
-    if (aFlag === '1') {
-        validateFieldsAndScroll((err, values) => {
-            if (!err) {
-            updateDetail({ainfo: values})
-            }
-        });
-    }
-    function handleSubmit() {
-
-    }
     function changeAdd(value) {
     }
     return (
-        <Form onSubmit={handleSubmit} className="login-form">
+        <Form>
             <Row>
                 <Col span={12}>
                     <FormItem {...formItemLayout} label="id">
@@ -222,7 +212,7 @@ const Info = ({ ainfo={}, form, options, statusList, updateConfig, aFlag, update
                             initialValue: ainfo.status
                         })(
                             <Select >
-                                {statusList.map(d => <Option className={styles.aa} value={d.value}  key={d.value}>{d.name}</Option>)}
+                                {statusList.map(d => <Option className={styles.mr10} value={d.value}  key={d.value}>{d.name}</Option>)}
                             </Select >
                         )}
                     </FormItem>

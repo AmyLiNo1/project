@@ -64,7 +64,7 @@ const Person = ({ dataSource, statusList, updateConfig, queryConfig1, toPath }) 
     return (
         <div>
             <Query {...queryProps}/>
-            <Table dataSource={dataSource} columns={columns} rowKey="id" scroll={{ x: 1300 }}  />
+            <Table dataSource={dataSource} columns={columns} rowKey={(record,index)=> index} scroll={{ x: 1300 }}  />
         </div>
     )
 }
