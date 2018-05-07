@@ -59,4 +59,9 @@ module.exports = {
             }
         }
     },
+    [ 'POST /api/save'](req, res) {
+        req.body.detail.ainfo.id = list.list.length
+        list.list.unshift(req.body.ainfo)
+        res.json({status: 200, message: (req.body.type === 'save' ? '保存' : '新增') + '成功'})
+    },
 };

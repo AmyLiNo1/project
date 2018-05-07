@@ -26,9 +26,9 @@ function RouterConfig({ history, app }) {
       models: () => [import('./models/list')],
       component: () => import('./routes/list/edit.js')
   }, {
-    path: '/aa', 
-      // models: () => [import('./models/app')],
-      component: () => import('./routes/aa')
+    path: '/add', 
+      models: () => [import('./models/add')],
+      component: () => import('./routes/add/index')
   }]
   return (
     <Router history={history}>

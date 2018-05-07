@@ -33,7 +33,7 @@ function App({ app, children, dispatch, history, location, match, staticContext 
             </Menu.Item>
             <Menu.Item key="11">
               <Icon type="user-add" />
-              <span>新增人员</span>
+              <Link to={'add'}> 新增人员</Link>
             </Menu.Item>
             <Menu.Item key="12">
               <Icon type="setting" />

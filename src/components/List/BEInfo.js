@@ -9,7 +9,7 @@ const Info = ({ binfo={}, form, options, statusList, updateConfig }) => {
         imageUrl: binfo.avatar,
         updateConfig(payload){updateConfig({binfo: {...binfo, ...payload}})}
     }
-    const { validateFieldsAndScroll, getFieldDecorator, setFieldsInitialValue, setFieldsValue, setFields } = form
+    const { validateFieldsAndScroll, getFieldsValue, getFieldDecorator, setFieldsInitialValue, setFieldsValue, setFields } = form
     const formItemLayout = {
         labelCol: {
           xs: { span: 24 },

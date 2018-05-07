@@ -42,3 +42,11 @@ export async function deleteId (data) {
     data
   })
 }
+
+export async function saveDetail (data) {
+  return request({
+    url: `${baseUrl}save`,
+    method: 'POST',
+    data
+  })
+}
