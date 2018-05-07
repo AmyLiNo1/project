@@ -1,10 +1,13 @@
 import React from 'react';
-import { Router, Route, Switch } from 'dva/router';
+import { Router, Route, Switch, Redirect } from 'dva/router';
 import dynamic from 'dva/dynamic';
 import App from './routes/app';
 
 function RouterConfig({ history, app }) {
-
+  const error = dynamic({
+    app,
+    component: () => import('./routes/error'),
+  })
   const routers = [{
     path: '/', 
       // models: () => [import('./models/app')],
@@ -34,11 +37,13 @@ function RouterConfig({ history, app }) {
     <Router history={history}>
       <App>
         <Switch>
-        {routers.map(({path, ...dynamics}, key) => (
-          <Route key={key} path={path} exact component={dynamic({
-            app, ...dynamics
-          })} />
-        ))}
+        <Route exact path="/" render={() => (<Redirect to="/login" />)} />
+          {routers.map(({path, ...dynamics}, key) => (
+            <Route key={key} path={path} exact component={dynamic({
+              app, ...dynamics
+            })} />
+          ))}
+        <Route component={error} />
         </Switch>
       </App>
     </Router>
