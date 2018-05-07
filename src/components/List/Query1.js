@@ -63,8 +63,8 @@ const Query = ({statusList, form, updateConfig, queryConfig1}) => {
                         initialValue: '',
                     })(
                         <RadioGroup onChange={changeStatus}>
-                            <RadioButton className={styles.aa} value={''}>全部</RadioButton >
-                            {statusList.map(d => <RadioButton className={styles.aa} value={d.value}  key={d.value}>{d.name}</RadioButton >)}
+                            <RadioButton className={styles.mr10} value={''}>全部</RadioButton >
+                            {statusList.map(d => <RadioButton className={styles.mr10} value={d.value}  key={d.value}>{d.name}</RadioButton >)}
                         </RadioGroup>
                     )}
                 </FormItem>
@@ -86,9 +86,9 @@ const Query = ({statusList, form, updateConfig, queryConfig1}) => {
                         initialValue: 0,
                     })(
                         <RadioGroup onChange={changePicker}>
-                            <RadioButton className={styles.aa} value={0}>近1月</RadioButton >
-                            <RadioButton className={styles.aa} value={1}>近1周</RadioButton >
-                            <RadioButton className={styles.aa} value={2}>近2周</RadioButton >
+                            <RadioButton className={styles.mr10} value={0}>近1月</RadioButton >
+                            <RadioButton className={styles.mr10} value={1}>近1周</RadioButton >
+                            <RadioButton className={styles.mr10} value={2}>近2周</RadioButton >
                         </RadioGroup>
                     )}
                 </FormItem>

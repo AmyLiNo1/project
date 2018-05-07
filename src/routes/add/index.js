@@ -37,13 +37,12 @@ function Add({ add, dispatch }) {
     function changeTab(key) {
     }
     function save() {
-      console.log(aref.current.getFieldsValue())
-      dispatch({type: 'add/save', payload: {detail: {
-        ainfo: aref.current.getFieldsValue(),
-      //   binfo: bref.current.getFieldsValue(),
-      //   cinfo: cref.current.getFieldsValue(),
-      //   dinfo: dref.current.getFieldsValue(),
-      }, type: 'save'}})
+      let detailData = {}
+      aref.current && (detailData.ainfo = aref.current.getFieldsValue())
+      bref.current && (detailData.binfo = bref.current.getFieldsValue())
+      cref.current && (detailData.cinfo = cref.current.getFieldsValue())
+      dref.current && (detailData.dinfo = dref.current.getFieldsValue())
+      dispatch({type: 'add/save', payload: {detail: detailData, type: 'save'}})
     }
     function submit() {
       let detailData = {}
