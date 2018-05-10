@@ -8,10 +8,10 @@ import { Link } from 'react-router-dom';
 const { Header, Content, Footer, Sider } = Layout;
 import styles from './app.less'
 const SubMenu = Menu.SubMenu;
-function App(config) {
-  const { app, children, dispatch, history, location, match, staticContext } = config
-  const { collapsed=false, menu, loginFlag, userName } = app
-  function onCollapse(collapsed) {
+function App({ app, children, dispatch, history, location, match, staticContext }) {
+  const { collapsed=false, menu, loginFlag, userName, defindKey=['1'] } = app
+  console.log(defindKey)
+  function onCollapse(collapsed=false) {
     dispatch({
       type: 'app/update',
       payload: { collapsed }
@@ -22,11 +22,25 @@ function App(config) {
       type: 'app/logout',
       payload: {userName}
     })
+    dispatch({
+      type: 'app/updateState',
+      payload: {defindKey: ['1']}
+    })
   }
   function toPath() {
     dispatch({
-      type: 'list/toPath',
+      type: 'app/toPath',
       payload: {key: 'to', id: 'set'}
+    })
+    dispatch({
+      type: 'app/updateState',
+      payload: {defindKey: ['3']}
+    })
+  }
+  function changeSelect(key) {
+    dispatch({
+      type: 'app/updateState',
+      payload: {defindKey: key.keyPath}
     })
   }
   const content = (
@@ -77,7 +91,7 @@ function App(config) {
           collapsible
         >
           <div className="logo" />
-          {menu.length && <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+          {menu.length && <Menu theme="dark" mode="inline" onClick={changeSelect} selectedKeys={defindKey}>
           {menus}
           </Menu>}
         </Sider>}
