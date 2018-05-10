@@ -1,6 +1,6 @@
 ### project项目用到的知识点
-antd+dva+node+kao
-
+前端：antd+dva
+数据：mock
 ### 目录结构
 ```bash
 ├── /dist/           # 项目打包后的文件
