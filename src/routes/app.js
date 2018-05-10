@@ -3,78 +3,90 @@ import { connect } from 'dva';
 import { withRouter } from 'dva/router'
 import { MyLayout } from '../components';
 // const { Header, SideBar, Footer } = MyLayout 
-import { Menu, Breadcrumb, Icon, Button, Layout } from 'antd';
+import { Menu, Breadcrumb, Icon, Button, Layout, Popover } from 'antd';
 import { Link } from 'react-router-dom';
 const { Header, Content, Footer, Sider } = Layout;
-import './app.less'
+import styles from './app.less'
 const SubMenu = Menu.SubMenu;
-function App({ app, children, dispatch, history, location, match, staticContext }) {
-  const { collapsed } = app
+function App(config) {
+  const { app, children, dispatch, history, location, match, staticContext } = config
+  const { collapsed=false, menu, loginFlag, userName } = app
   function onCollapse(collapsed) {
     dispatch({
       type: 'app/update',
-      payload: {collapsed}
+      payload: { collapsed }
     })
   }
+  function logout() {
+    dispatch({
+      type: 'app/logout',
+      payload: {userName}
+    })
+  }
+  function toPath() {
+    dispatch({
+      type: 'list/toPath',
+      payload: {key: 'to', id: 'set'}
+    })
+  }
+  const content = (
+    <div>
+      <p style={{cursor: 'pointer'}} onClick={logout}>退出登陆</p>
+      <p style={{cursor: 'pointer'}} onClick={toPath}>设置账号</p>
+    </div>
+  );
+  const menus = menu.map(item => {
+    if (!item.nkey && !item.key) {
+      return (<Menu.Item key={item.id}>
+              <Link to={item.route}>
+                {item.icon &&<Icon type={item.icon} />}
+                {item.name}
+              </Link>
+            </Menu.Item>)
+    } else if (item.nkey){
+      return (<SubMenu
+        key={item.id}
+        title={item.icon ? <span><Icon type={item.icon} /><span>{item.name}</span></span>: <span>{item.name}</span>}
+      >
+       {menu.map(i => {
+         if (i.key === item.id) {
+           return (<Menu.Item key={i.id}>{i.name}
+            <Link to={i.route}>
+              {i.icon &&<Icon type={i.icon} />}
+              {i.name}
+            </Link>
+           </Menu.Item>)
+         }
+       })}
+      </SubMenu>)
+    }
+  })
   return (
     <div>
-      <Header></Header>
+      <Header style={{ background: '#fff', padding: '0 20px 0 0 ' ,textAlign: 'right'}} >
+        {loginFlag && <Popover content={content}>
+          <Button type="primary">{userName}</Button>
+        </Popover>}
+      </Header>
       <Layout style={{ minHeight: '100vh' }}>
-        <Sider
-          collapsible
+        {!loginFlag ? null : <Sider
+          breakpoint="lg"
+          collapsedWidth="0"
           collapsed={collapsed}
           onCollapse={onCollapse}
+          collapsible
         >
           <div className="logo" />
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-            <Menu.Item key="10">
-              <Icon type="table" />
-              <Link to={'list'}> 人员列表</Link>
-            </Menu.Item>
-            <Menu.Item key="11">
-              <Icon type="user-add" />
-              <Link to={'add'}> 新增人员</Link>
-            </Menu.Item>
-            <Menu.Item key="12">
-              <Icon type="setting" />
-              <span>设置</span>
-            </Menu.Item>
-            <Menu.Item key="13">
-              <Icon type="pie-chart" />
-              <span>Option 1</span>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Icon type="desktop" />
-              <span>Option 2</span>
-            </Menu.Item>
-            <SubMenu
-              key="sub1"
-              title={<span><Icon type="user" /><span>User</span></span>}
-            >
-              <Menu.Item key="3">Tom</Menu.Item>
-              <Menu.Item key="4">Bill</Menu.Item>
-              <Menu.Item key="5">Alex</Menu.Item>
-            </SubMenu>
-            <SubMenu
-              key="sub2"
-              title={<span><Icon type="team" /><span>Team</span></span>}
-            >
-              <Menu.Item key="6">Team 1</Menu.Item>
-              <Menu.Item key="8">Team 2</Menu.Item>
-            </SubMenu>
-            <Menu.Item key="9">
-              <Icon type="file" />
-              <span>File</span>
-            </Menu.Item>
-          </Menu>
-        </Sider>
+          {menu.length && <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+          {menus}
+          </Menu>}
+        </Sider>}
         <Layout>
-          <Header style={{ background: '#fff', padding: 0 }} />
-          <Content style={{ margin: '0 16px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
+          <Content style={{ margin: '24px 16px 0' }}>
+            {loginFlag && <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>User</Breadcrumb.Item>
               <Breadcrumb.Item>Bill</Breadcrumb.Item>
-            </Breadcrumb>
+            </Breadcrumb>}
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
               {children}
             </div>

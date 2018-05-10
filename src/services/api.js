@@ -50,3 +50,19 @@ export async function saveDetail (data) {
     data
   })
 }
+
+export async function loginFun (data) {
+  return request({
+    url: `${baseUrl}login`,
+    method: 'POST',
+    data
+  })
+}
+
+export async function logoutFun (data) {
+  return request({
+    url: `${baseUrl}logout`,
+    method: 'POST',
+    data
+  })
+}

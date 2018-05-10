@@ -1,4 +1,4 @@
-
+import { message } from 'antd';
 import { saveDetail } from '../services/api'
 export default {
 
@@ -23,8 +23,10 @@ export default {
       * save ({
                  payload,
                }, { call, put, select }) {
-       console.log(payload)
        const data = yield call(saveDetail, payload)
+       if (data.status === 200) {
+        message.success(data.message)
+       }
       },
     }
     

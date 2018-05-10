@@ -125,6 +125,8 @@ export default {
                       })
                     }
                   }
+                 } else if (payload.key = 'to') {
+                  yield put(routerRedux.push(`/${payload.id}`))
                  }
                 
       },

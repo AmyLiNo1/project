@@ -14,7 +14,7 @@ function RouterConfig({ history, app }) {
       component: () => import('./routes/login/index')
   }, {
     path: '/login', 
-      // models: () => [import('./models/app')],
+      models: () => [import('./models/login')],
       component: () => import('./routes/login/index')
   }, {
     path: '/list', 
